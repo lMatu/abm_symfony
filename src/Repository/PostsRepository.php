@@ -19,6 +19,17 @@ class PostsRepository extends ServiceEntityRepository
         parent::__construct($registry, Posts::class);
     }
 
+    public function findAllPosts()
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT post.id, post.titulo, post.foto, post.fecha_publicacion 
+             FROM App:Posts post');
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Posts[] Returns an array of Posts objects
     //  */

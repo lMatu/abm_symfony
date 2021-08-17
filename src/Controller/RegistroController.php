@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Usuarios;
 use App\Form\UsuarioType;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
@@ -28,9 +27,6 @@ class RegistroController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $en = $this->getDoctrine()->getManager();
-            $usuario->setBaneado(false);
-            $usuario->setRoles(['ROLE_USER']);
-            $usuario->setFechaCreacion(new DateTime());
             $usuario->setPassword($passwordHasher->hashPassword($usuario, $form['password']->getData()));
             $en->persist($usuario);
             $en->flush();

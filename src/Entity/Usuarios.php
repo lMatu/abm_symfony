@@ -6,6 +6,7 @@ use App\Repository\UsuariosRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=UsuariosRepository::class)
@@ -54,6 +55,13 @@ class Usuarios implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Posts", mappedBy="usuarios")
      */
     private $posts;
+
+
+    public function __construct (){
+        $this->baneado = false;
+        $this->roles = ['ROLE_USER'];
+        $this->fecha_creacion = new DateTime();
+    }
 
     public function getId(): ?int
     {
